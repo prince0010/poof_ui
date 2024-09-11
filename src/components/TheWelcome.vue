@@ -42,7 +42,7 @@ import SupportIcon from './icons/IconSupport.vue'
   </WelcomeItem>
 
   <WelcomeItem>
-    <template #icon>
+      <template #icon>
       <EcosystemIcon />
     </template>
     <template #heading>Ecosystem</template>
