@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { errorMessages } from 'vue/compiler-sfc';
+// import { errorMessages } from 'vue/compiler-sfc';
 </script>
 
 <template>
@@ -18,7 +18,7 @@ import { errorMessages } from 'vue/compiler-sfc';
             </div>
             <button type="submit">Login</button>
         </form>
-        <p v-if="errorMessages" class="error">{{ errorMessages }}</p>
+        <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
     </div>
 </template>
 
@@ -40,7 +40,7 @@ import { errorMessages } from 'vue/compiler-sfc';
                     alert('Please fill in all fields');
                 }
                 else{
-                    this.errorMessages = 'Invalid Email or Password';
+                    this.errorMessage = 'Invalid Email or Password';
                 }
             }
         }
