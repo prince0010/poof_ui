@@ -1,5 +1,4 @@
 <template>
-    <!-- LOGIN PAGE -->
     <div class="parent-container">
     <div class="login-container">
         <h1 class="title">Login</h1>
@@ -29,7 +28,7 @@
                 <button type="submit" class="login-button">Login</button>
             </div>
         </form>
-        <!-- Display error and success messages separately -->
+        <!-- Display error and success messages -->
         <p v-if="errorMessage" class="error">{{ errorMessage}}</p>
         <p v-if="succMessage" class="success">{{ succMessage }}</p>
     </div>
@@ -39,7 +38,6 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-// import { errorMessages } from 'vue/compiler-sfc';
     
     const email = ref('');
     const password = ref('');
