@@ -43,7 +43,8 @@
 </template>
 
 <script setup lang="ts">
-    import { ref } from 'vue';
+    import { error } from 'cypress/types/jquery';
+import { ref } from 'vue';
 
 
     const fname = ref('');
@@ -54,9 +55,74 @@
     const email = ref('');
     const passsword = ref('');
     const cpassword = ref('');
-    
+    const errors = ref({
+        fname: '',
+        mname: '',
+        lname: '',
+        address: '',
+        phonenum: '',
+        email: '',
+        passsword: '',
+        cpassword: '',
+    });
+    const validatedFirstName = () => {
+        // If the input tag is empty
+        if(!fname.value){
+            errors.value.fname = 'First Name is Required';
+        }
+        else {   
+            errors.value.fname = '';
+        }
+    };
+
+    const validatedMiddleName = () => {
+        if(!mname.value){
+            errors.value.mname = 'Middle Name is Required';
+        }
+        else {
+            errors.value.mname = '';
+        }
+    };
+
+    const validatedLastName = () => {
+        if(!lname.value){
+            errors.value.lname = 'Last Name is Required';
+        }
+        else{
+            errors.value.lname = '';
+        }
+    };
+
+    const validatedAddress = () => {
+        if(!address.value){
+            errors.value.address = 'Address is Required';
+        }
+        else{
+            errors.value.address = '';
+        }
+    };
+
+    const validatedPhoneNumber = () => {
+        if(!phonenum.value){
+            errors.value.phonenum = 'Phone Number is Required';
+        }
+        else{
+            errors.value.phonenum = '';
+        }
+    };
+    const validatedEmailField = () => {
+        if(!validatedEmail(email.value))
+        {
+
+        }
+    };
     const handleRegister = () => {
 
     }
+
+    const validatedEmail = (email: string) =>{
+        const re = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+        return re.test(email);
+    };
 
 </script>
