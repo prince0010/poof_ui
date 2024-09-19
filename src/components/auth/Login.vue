@@ -28,9 +28,8 @@
                 <button type="submit" class="login-button">Login</button>
             </div>
         </form>
-        <!-- Display error and success messages -->
-        <p v-if="errorMessage" class="error">{{ errorMessage}}</p>
-        <p v-if="succMessage" class="success">{{ succMessage }}</p>
+        <!-- Display error or success message -->
+        <p :class="succMessage ? 'success' : 'error'">{{ succMessage? succMessage : errorMessage }}</p>
     </div>
 </div>
 </template>
@@ -99,7 +98,22 @@ import { ref } from 'vue';
 </script>
 
  
-<style scoped>
+<style>
+
+/* Consolidated body styles */
+body {
+    min-height: 100vh;
+    color: #ffffff;
+    background: #1d1d1d;
+    transition: color 0.5s, background-color 0.5s;
+    line-height: 1.6;
+    font-family: Inter, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    font-size: 15px;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 .parent-container{
     display: flex;
     justify-content: center;
