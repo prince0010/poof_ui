@@ -13,24 +13,24 @@
                             v-model="email"
                             @input="validateEmailField" 
                             placeholder="example123@gmail.com*"
-                            :class="{'input-field': !errors.email, 'error-field': errors.email}"
-                            :key="shakeKey.email"
+                            :class="['input-field', errors.email ? 'error-field' : '', shakeStatus.email ? 'shake' : '']"
+                            @animationend="removeShake('email')"
                         />
                     </div>
                     <p :class="errors.email ? 'error show' : 'error'">{{ errors.email }}</p>
-                    </div>
-                <div class="form-group">
-                    <div class="input-group relative">
-                        <font-awesome-icon icon="lock" class="absolute left-3 text-gray icon-visible"/>
+                    </div> 
+                <div class="form-group"> 
+                    <div class="input-group relative"> 
+                        <font-awesome-icon icon="lock" class="absolute left-3 text-gray icon-visible"/> 
                         <input 
-                            :type="showPassword ? 'text' : 'password'" 
+                            :type="showPassword ? 'text' : 'password'"  
                             id="password" 
                             v-model="password" 
-                            @input="validatePasswordField"
-                            placeholder="Password*"
-                            :class="{'input-field': !errors.password, 'error-field': errors.password}"
-                            :key="shakeKey.password"
-                        />
+                            @input="validatePasswordField" 
+                            placeholder="Password*" 
+                            :class="['input-field', errors.password ? 'error-field' : '', shakeStatus.password ? 'shake' : '']" 
+                            @animationend="removeShake('password')"  
+                        /> 
                         <font-awesome-icon 
                             :icon="showPassword ? 'eye-slash' : 'eye'" 
                             class="absolute right-3 cursor text-gray"
@@ -43,13 +43,13 @@
                     <button type="submit" class="login-button">Login</button>
                 </div>
             </form>
-            <p :class="succMessage ? 'success' : 'error show'">{{ succMessage? succMessage : errorMessage }}</p>
+            <p :class="succMessage ? 'success' : 'error show'"> {{ succMessage? succMessage : errorMessage }} </p>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed} from 'vue';
+import { ref } from 'vue';
 
 const email = ref('');
 const password = ref('');
@@ -60,25 +60,30 @@ const errors = ref({
     email: '',
     password: '',
 });
-
+const shakeStatus =  ref({
+    email: false,
+    password: false,
+});
 // Toggle password visibility
 const togglePasswordVisibility = () => {
     showPassword.value = !showPassword.value;
 };
 
-// Create a shakeKey to reset the animation
-const shakeKey = computed(() => ({
-    email: errors.value.email ? `${Date.now()}-email` : 'email',
-    password: errors.value.password ? `${Date.now()}-password` : 'password', 
-
-}));
+// Function to reset shake class after animation ends
+const removeShake = (field: string) => {
+    setTimeout(() => {
+        shakeStatus.value[field] = false;
+    }, 500); // Remove the shake class affter animation duration (0.5s)
+}
 
 // Field by Field Validation
 const validateEmailField = () => {
     if (!email.value) {
         errors.value.email = 'Email is Required';
+        shakeStatus.value.email = true;
     } else if (!validatedEmail(email.value)) {
         errors.value.email = 'Valid Email is Required';
+        shakeStatus.value.email = true;
     } else {
         errors.value.email = ''; // Clear the error if valid
     }
@@ -87,8 +92,10 @@ const validateEmailField = () => {
 const validatePasswordField = () => {
     if (!password.value) {
         errors.value.password = 'Password is Required';
+        shakeStatus.value.password = true;
     } else if (password.value.length < 6) {
         errors.value.password = 'Password must be at least 6 characters';
+        shakeStatus.value.password = true;
     } else {
         errors.value.password = ''; // Clear the error if valid
     }
@@ -217,10 +224,12 @@ body {
     75% { transform: translateX(-5px); }
 }
 
+.shake{
+    animation: shake 0.5s ease;
+}
 /* Error field styling */
 .error-field {
     border-color: red; /* Red border for error */
-    animation: shake 0.5s ease;
 }
 
 /* Icon positioning */
