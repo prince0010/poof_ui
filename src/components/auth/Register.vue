@@ -83,7 +83,6 @@
 </template>
 
 <script setup lang="ts">
-    import { error } from 'cypress/types/jquery';
 import { ref } from 'vue';
 
 

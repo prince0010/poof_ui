@@ -1,185 +1,257 @@
 <template>
     <div class="parent-container">
-    <div class="login-container">
-        <h1 class="title">Login</h1>
+        <div class="login-container">
+            <h1 class="title">Login</h1>
 
-        <form @submit.prevent="handleLogin">
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input 
-                    type="email" 
-                    id="email"
-                    v-model="email"
-                    @input="validateEmailField" 
-                    >
-                <p v-if="errors.email" class="error">{{ errors.email }}</p>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input 
-                    type="password" 
-                    id="password" 
-                    v-model="password" 
-                    @input="validatePasswordField"
-                    >
-                <p v-if="errors.password" class="error">{{ errors.password }}</p>
-            </div>
-            <div class="btn">
-                <button type="submit" class="login-button">Login</button>
-            </div>
-        </form>
-        <!-- Display error or success message -->
-        <p :class="succMessage ? 'success' : 'error'">{{ succMessage? succMessage : errorMessage }}</p>
+            <form @submit.prevent="handleLogin">
+                <div class="form-group">
+                    <div class="input-group relative">
+                        <font-awesome-icon icon="envelope" class="absolute left-3 text-gray icon-visible" />
+                        <input 
+                            type="email" 
+                            id="email"
+                            v-model="email"
+                            @input="validateEmailField" 
+                            placeholder="example123@gmail.com*"
+                            :class="errors.email ? 'error-field' : 'input-field' "
+                        />
+                    </div>
+                    <p :class="errors.email ? 'error show' : 'error'">{{ errors.email }}</p>
+                    </div>
+                <div class="form-group">
+                    <div class="input-group relative">
+                        <font-awesome-icon icon="lock" class="absolute left-3 text-gray icon-visible"/>
+                        <input 
+                            :type="showPassword ? 'text' : 'password'" 
+                            id="password" 
+                            v-model="password" 
+                            @input="validatePasswordField"
+                            placeholder="Password*"
+                            :class="errorMessage ? 'error-field' : 'input-field' "
+                        />
+                        <font-awesome-icon 
+                            :icon="showPassword ? 'eye-slash' : 'eye'" 
+                            class="absolute right-3 cursor text-gray"
+                            @click="togglePasswordVisibility"
+                        />
+                    </div>
+                    <p :class="errors.password ? 'error show' : 'error'">{{ errors.password }}</p>
+                    </div>
+                <div class="btn">
+                    <button type="submit" class="login-button">Login</button>
+                </div>
+            </form>
+            <p :class="succMessage ? 'success' : 'error show'">{{ succMessage? succMessage : errorMessage }}</p>
+        </div>
     </div>
-</div>
 </template>
-
 
 <script setup lang="ts">
 import { ref } from 'vue';
-    
-    const email = ref('');
-    const password = ref('');
-    const errorMessage = ref('');
-    const succMessage = ref('');
-    const errors = ref({
-        email: '',
-        password: '',
-    });
-    // Field by Field Validation
 
-    const validateEmailField = () => {
-        if(!email.value){
-            errors.value.email = 'Email is Required';
-        }
-        else if(!validatedEmail(email.value)){
-            errors.value.email = 'Valid Email is Required';
-        }
-        else{
-            errors.value.email = ''; // Clear the error if valid
-        }
+const email = ref('');
+const password = ref('');
+const showPassword = ref(false);
+const errorMessage = ref('');
+const succMessage = ref('');
+const errors = ref({
+    email: '',
+    password: '',
+});
 
+// Toggle password visibility
+const togglePasswordVisibility = () => {
+    showPassword.value = !showPassword.value;
+};
+
+// Field by Field Validation
+const validateEmailField = () => {
+    if (!email.value) {
+        errors.value.email = 'Email is Required';
+    } else if (!validatedEmail(email.value)) {
+        errors.value.email = 'Valid Email is Required';
+    } else {
+        errors.value.email = ''; // Clear the error if valid
     }
-    const validatePasswordField = () => {
-        if(!password.value){
-            errors.value.password = 'Password is Required';
-        }
-        else if(password.value.length < 6){
-            errors.value.password = 'Password must be at least 6 characters';
-        }
-        else{
-            errors.value.password = ''; // Clear the error if valid
-        }
-    }
-    const handleLogin = () => {
+};
 
+const validatePasswordField = () => {
+    if (!password.value) {
+        errors.value.password = 'Password is Required';
+    } else if (password.value.length < 6) {
+        errors.value.password = 'Password must be at least 6 characters';
+    } else {
+        errors.value.password = ''; // Clear the error if valid
+    }
+};
+
+const handleLogin = () => {
     // Run final validation on submit
-        validateEmailField();
-        validatePasswordField();
-        
+    validateEmailField();
+    validatePasswordField();
 
-        // NO API CONNECTED IN THIS ONE YET FROM LARAVEL
-        // If no errors, submit the form or do further processing
-        if(!errors.value.email && !errors.value.password) {
-            succMessage.value = 'Login Successfully'; // Replace or add some with the proper logic later like after logged in it will redirect or something.
-            errorMessage.value = '';  // Clear any error message
-        }
-        else{
-            errorMessage.value = 'Wrong Credentials. Please try again.';
-            succMessage.value = '' ; // Clear any success message
-        }
+    if (!errors.value.email && !errors.value.password) {
+        succMessage.value = 'Login Successfully';
+        errorMessage.value = '';  // Clear any error message
+    } else {
+        errorMessage.value = 'Wrong Credentials. Please try again.';
+        succMessage.value = ''; // Clear any success message
     }
+};
 
-    // Email Validation function simple regex check
-    const validatedEmail = (email: string) =>{
-        const re = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-        return re.test(email);
-    };
+// Email Validation function
+const validatedEmail = (email: string) => {
+    const re = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+    return re.test(email);
+};
 </script>
 
- 
 <style>
-
-/* Consolidated body styles */
+/* Body styles */
 body {
     min-height: 100vh;
     color: #ffffff;
     background: #1d1d1d;
-    transition: color 0.5s, background-color 0.5s;
-    line-height: 1.6;
     font-family: Inter, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     font-size: 15px;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
 }
 
-.parent-container{
+/* Parent container to center the login container */
+.parent-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
 }
-.login-container{
-    max-width: 300px;
-    margin: auto;
-    padding: 1rem;
+
+/* Login container styling */
+.login-container {
+    max-width: 400px;
+    padding: 3rem;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #2a2a2a;
+    width: 100%;
 }
-.error{
+
+/* Error message styling */
+.error {
     color: red;
+    font-size: 0.85rem;
+    margin-top: 5px; /* Add margin to separate from input */
+    height: 20px; /* Fixed height to prevent layout shifting */
+    visibility: hidden; /* Hide the error message placeholder initially */
 }
-.success{
+
+.error.show {
+    visibility: visible; /* Show error messages */
+}
+
+/* Success message styling */
+.success {
     color: green;
 }
-.btn{
+
+/* Button container */
+.btn {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.form-group{
-    margin-bottom: 1rem;
+
+/* Form group wrapper */
+.form-group {
+    /* display: flex;
+    align-items: center; */
+    margin-bottom: 1.5rem; /* Center vertically */
+    position: relative; /* Position icons relative to the input field */
 }
-label{
-    display: block;
-    margin-bottom: 0.5rem;
+
+/* Input group wrapper for icons and inputs */
+.input-group {
+    display: flex;
+    align-items: center;
+    position: relative;
 }
-input{
+
+/* Input field styling */
+.input-field,
+.error-field {
     width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
+    padding: 0.75rem 2.5rem; /* Space for icons */
+    border: 1px solid #ccc; /* Default border */
     border-radius: 4px;
+    background-color: #333;
+    color: #fff;
     box-sizing: border-box;
+    height: 45px; /* Fixed height for consistency */
+    font-size: 1rem;
+    line-height: 1.5; /* Ensure line-height matches input height */
+    transition: all 0.3s ease;
+    position: relative;
 }
 
-/* Button Style */
+/* Error field styling */
+.error-field {
+    border-color: red; /* Red border for error */
+}
 
-.login-button{
+/* Icon positioning */
+.absolute {
+    position: absolute;
+    top: 50%; /* Vertically center the icon */
+    transform: translateY(-50%); /* Ensure vertical centering */
+    font-size: 0.875rem; /* Adjust the icon size */
+}
+
+.left-3 {
+    left: 12px;
+}
+
+.right-3 {
+    right: 12px;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+.text-gray {
+    color: rgb(156, 163, 175); /* Light gray for the icons */
+}
+
+.icon-visible {
+    z-index: 2;
+    pointer-events: none; /* Ensure icon doesn't interfere with input */
+}
+
+/* Button styling */
+.login-button {
     background-color: rgb(75, 74, 74);
-    color: white;/* white text */
-    padding: 10px 20px;/* Padding */
-    border: none;/* Remove border */
-    border-radius: 5px;/* Rounded corners */
-    cursor: pointer;/* Pointer cursor on hover */
-    font-size: 1rem; /* Font size */
-    transition: background-color 0.3s ease;/* Smooth hover effect */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
 }
 
-/* Button hover and focus state */
-.login-button:hover{
+/* Button hover and focus states */
+.login-button:hover {
     background-color: rgb(37, 37, 37);
 }
-.login-button:focus{
-    outline: none; /* Remove outline on focus */
-    background-color: rgb(109, 109, 109);/* Even darker green on focus */
+
+.login-button:focus {
+    outline: none;
+    background-color: rgb(109, 109, 109);
 }
 
-/* Disable Button State */
-.login-button:disabled{
-    background-color: #cccccc;/* Gray background for disabled state */
-    cursor: not-allowed;/* Disabled cursor */
+.login-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
 }
+
 </style>
