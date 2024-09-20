@@ -13,7 +13,7 @@
                             v-model="email"
                             @input="validateEmailField" 
                             placeholder="example123@gmail.com*"
-                            :class="errors.email ? 'error-field' : 'input-field' "
+                            :class="{'input-field': !errors.email, 'error-field': errors.email, 'shake': errors.email }"
                         />
                     </div>
                     <p :class="errors.email ? 'error show' : 'error'">{{ errors.email }}</p>
@@ -27,7 +27,7 @@
                             v-model="password" 
                             @input="validatePasswordField"
                             placeholder="Password*"
-                            :class="errorMessage ? 'error-field' : 'input-field' "
+                            :class="{'input-field': !errors.password, 'error-field': errors.password, 'shake': errors.password }"
                         />
                         <font-awesome-icon 
                             :icon="showPassword ? 'eye-slash' : 'eye'" 
@@ -107,6 +107,7 @@ const validatedEmail = (email: string) => {
 </script>
 
 <style>
+
 /* Body styles */
 body {
     min-height: 100vh;
@@ -124,7 +125,13 @@ body {
     height: 100vh;
     margin: 0;
 }
-
+.title{
+    margin-top: 0px; /* Removes any extra space above the title */
+    padding-top: 0.5rem; /* Adjusts the space inside the element from the top */
+    margin-bottom: 3rem; /* Keeps space below the title */
+    font-size: 3rem; /* Keeps the large size of the title */
+    text-align: center; /* Centers the title text */
+}
 /* Login container styling */
 .login-container {
     max-width: 400px;
@@ -193,9 +200,18 @@ body {
     position: relative;
 }
 
+/* Shake animation */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+}
+
 /* Error field styling */
 .error-field {
     border-color: red; /* Red border for error */
+    animation: shake 0.5s ease;
 }
 
 /* Icon positioning */
@@ -253,5 +269,6 @@ body {
     background-color: #cccccc;
     cursor: not-allowed;
 }
+
 
 </style>
