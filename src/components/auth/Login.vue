@@ -13,7 +13,8 @@
                             v-model="email"
                             @input="validateEmailField" 
                             placeholder="example123@gmail.com*"
-                            :class="{'input-field': !errors.email, 'error-field': errors.email, 'shake': errors.email }"
+                            :class="{'input-field': !errors.email, 'error-field': errors.email}"
+                            :key="shakeKey.email"
                         />
                     </div>
                     <p :class="errors.email ? 'error show' : 'error'">{{ errors.email }}</p>
@@ -27,7 +28,8 @@
                             v-model="password" 
                             @input="validatePasswordField"
                             placeholder="Password*"
-                            :class="{'input-field': !errors.password, 'error-field': errors.password, 'shake': errors.password }"
+                            :class="{'input-field': !errors.password, 'error-field': errors.password}"
+                            :key="shakeKey.password"
                         />
                         <font-awesome-icon 
                             :icon="showPassword ? 'eye-slash' : 'eye'" 
@@ -47,7 +49,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed} from 'vue';
 
 const email = ref('');
 const password = ref('');
@@ -63,6 +65,13 @@ const errors = ref({
 const togglePasswordVisibility = () => {
     showPassword.value = !showPassword.value;
 };
+
+// Create a shakeKey to reset the animation
+const shakeKey = computed(() => ({
+    email: errors.value.email ? `${Date.now()}-email` : 'email',
+    password: errors.value.password ? `${Date.now()}-password` : 'password', 
+
+}));
 
 // Field by Field Validation
 const validateEmailField = () => {
