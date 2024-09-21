@@ -104,11 +104,29 @@ import { ref } from 'vue';
         password: '',
         cpassword: '',
     });
+    const shakeStatus = ref({
+        fname: false,
+        mname: false,
+        lname: false,
+        address: false,
+        phonenum: false,
+        email: false,
+        password: false,
+        cpassword: false,
+    });
+
+    // Function to reset shake class after animation ends
+    const removeShakeStatus = (field:  string) => {
+        setTimeout(()=>{
+            shakeStatus.value[field] = false;
+        }, 500); // Remove the shake class affter animation duration (0.5s)
+    }
     const validatedFirstName = () => {
         // If the input tag is empty
         if(!fname.value){
             errors.value.fname = 'First Name is Required';
-        }
+            shakeStatus.value.fname = true;
+            }
         else {   
             errors.value.fname = '';
         }
@@ -117,6 +135,7 @@ import { ref } from 'vue';
     const validatedMiddleName = () => {
         if(!mname.value){
             errors.value.mname = 'Middle Name is Required';
+            shakeStatus.value.mname = true;
         }
         else {
             errors.value.mname = '';
@@ -126,6 +145,7 @@ import { ref } from 'vue';
     const validatedLastName = () => {
         if(!lname.value){
             errors.value.lname = 'Last Name is Required';
+            shakeStatus.value.lname = true;
         }
         else{
             errors.value.lname = '';
@@ -135,6 +155,7 @@ import { ref } from 'vue';
     const validatedAddress = () => {
         if(!address.value){
             errors.value.address = 'Address is Required';
+            shakeStatus.value.address = true;
         }
         else{
             errors.value.address = '';
@@ -144,6 +165,7 @@ import { ref } from 'vue';
     const validatedPhoneNumber = () => {
         if(!phonenum.value){
             errors.value.phonenum = 'Phone Number is Required';
+            shakeStatus.value.phonenum = true;
         }
         else{
             errors.value.phonenum = '';
@@ -152,10 +174,12 @@ import { ref } from 'vue';
     const validatedEmailField = () => {
         if(!email.value){
             errors.value.email = 'Email is Required';
+            shakeStatus.value.email = true;
         }
         else if(!validatedEmail(email.value))
         {
             errors.value.email = 'Validated Email is Required';
+            shakeStatus.value.email = true;
         }
         else {
             errors.value.email = '';
@@ -164,9 +188,11 @@ import { ref } from 'vue';
     const validatedPasswordField = () => {
         if(!password.value){
             errors.value.password = 'Password is Required';
+            shakeStatus.value.password = true;
         }
         else if(password.value !== cpassword.value){
             errors.value.password = 'Password does not match';
+            shakeStatus.value.password = true;
         }
         else {
             errors.value.password = '';
@@ -176,14 +202,18 @@ import { ref } from 'vue';
     const validateConfirmPasswordField = () => {
         if(!cpassword.value){
             errors.value.cpassword = 'Confirm Password is Required';
+            shakeStatus.value.cpassword = true;
         }
         else if(cpassword.value !== password.value){
             errors.value.cpassword = 'Password does not match';
+            shakeStatus.value.cpassword = true;
         }
         else {
             errors.value.cpassword = '';
         }
     }
+
+    // Logic for Register
     const handleRegister = () => {
 
     }

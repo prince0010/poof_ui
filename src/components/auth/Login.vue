@@ -17,7 +17,7 @@
                             @animationend="removeShake('email')"
                         />
                     </div>
-                    <p :class="errors.email ? 'error show' : 'error'">{{ errors.email }}</p>
+                    <p :class="errors.email ? 'error show ' : 'error'">{{ errors.email }}</p>
                     </div> 
                 <div class="form-group"> 
                     <div class="input-group relative"> 
@@ -37,13 +37,13 @@
                             @click="togglePasswordVisibility"
                         />
                     </div>
-                    <p :class="errors.password ? 'error show' : 'error'">{{ errors.password }}</p>
+                    <p :class="errors.password ? 'error show ' : 'error'">{{ errors.password }} </p>
                     </div>
                 <div class="btn">
                     <button type="submit" class="login-button">Login</button>
                 </div>
             </form>
-            <p :class="succMessage ? 'success' : 'error show'"> {{ succMessage? succMessage : errorMessage }} </p>
+            <p :class="succMessage ? 'success' : 'err show '"> {{ succMessage ? succMessage : errorMessage }} </p>
         </div>
     </div>
 </template>
@@ -145,13 +145,13 @@ body {
     margin-top: 0px; /* Removes any extra space above the title */
     padding-top: 0.5rem; /* Adjusts the space inside the element from the top */
     margin-bottom: 3rem; /* Keeps space below the title */
-    font-size: 3rem; /* Keeps the large size of the title */
+    font-size: 2.5rem; /* Keeps the large size of the title */
     text-align: center; /* Centers the title text */
 }
 /* Login container styling */
 .login-container {
-    max-width: 400px;
-    padding: 3rem;
+    max-width: 300px;
+    padding: 1rem; /* Increased padding for a balanced look */
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -159,6 +159,12 @@ body {
     width: 100%;
 }
 
+.err{
+    color:red;
+    font-size: 0.85rem;
+    height: 20px;
+    visibility: hidden;
+}
 /* Error message styling */
 .error {
     color: red;
@@ -167,11 +173,15 @@ body {
     height: 20px; /* Fixed height to prevent layout shifting */
     visibility: hidden; /* Hide the error message placeholder initially */
 }
-
+.err.show,
 .error.show {
     visibility: visible; /* Show error messages */
 }
 
+.err,
+.success{
+    text-align: center;
+}
 /* Success message styling */
 .success {
     color: green;
@@ -188,7 +198,7 @@ body {
 .form-group {
     /* display: flex;
     align-items: center; */
-    margin-bottom: 1.5rem; /* Center vertically */
+   /* margin-bottom: 1.5rem;  Center vertically */
     position: relative; /* Position icons relative to the input field */
 }
 
@@ -203,15 +213,15 @@ body {
 .input-field,
 .error-field {
     width: 100%;
-    padding: 0.75rem 2.5rem; /* Space for icons */
-    border: 1px solid #ccc; /* Default border */
+    padding: 0.5rem 2rem; /* Reduced padding for better fit */
+    border: 1px solid #ccc;
     border-radius: 4px;
     background-color: #333;
     color: #fff;
     box-sizing: border-box;
-    height: 45px; /* Fixed height for consistency */
-    font-size: 1rem;
-    line-height: 1.5; /* Ensure line-height matches input height */
+    height: 40px; /* Slightly reduced height for compact design */
+    font-size: 0.9rem; /* Reduced font size for smaller fields */
+    line-height: 1.5;
     transition: all 0.3s ease;
     position: relative;
 }
@@ -235,17 +245,17 @@ body {
 /* Icon positioning */
 .absolute {
     position: absolute;
-    top: 50%; /* Vertically center the icon */
-    transform: translateY(-50%); /* Ensure vertical centering */
-    font-size: 0.875rem; /* Adjust the icon size */
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8rem; /* Reduced icon size for better fit */
 }
 
 .left-3 {
-    left: 12px;
+    left: 10px; /* Adjusted to fit with reduced input padding */
 }
 
 .right-3 {
-    right: 12px;
+    right: 10px; /* Adjusted to fit with reduced input padding */
 }
 
 .cursor {
@@ -265,11 +275,11 @@ body {
 .login-button {
     background-color: rgb(75, 74, 74);
     color: white;
-    padding: 10px 20px;
+    padding: 8px 16px; /* Slightly reduced padding for a compact button */
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 0.9rem; /* Adjusted font size */
     transition: background-color 0.3s ease;
 }
 
