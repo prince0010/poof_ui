@@ -12,8 +12,10 @@
                         v-model="fname"
                         @input="validatedFirstName"
                         @animationend="removeShakeStatus('fname')"
+                        :class="['input-field', errors.fname ? 'error-field' : '', shakeStatus.fname ? 'shake' : '']"
                         >
                 </div>
+                <p :class="errors.fname ? 'error show' : 'error'"> {{  errors.fname }}</p>
                 </div>
             <div class="form-group">
                 <div class="input-group relative">
@@ -24,8 +26,10 @@
                         v-model="mname"
                         @input="validatedMiddleName"
                         @animationend="removeShakeStatus('mname')"
+                        :class="['input-field', errors.mname ? 'error-field' : '', shakeStatus.mname ? 'shake' : '' ]"
                         >
                 </div>
+                <p :class="errors.mname ? 'error show' : 'error'"> {{ errors.mname }}</p>
                 </div>
             <div class="form-group">
                 <div class="input-group relative">
@@ -36,8 +40,10 @@
                         v-model="lname"
                         @input="validatedLastName"
                         @animationend="removeShakeStatus('lname')"
+                        :class="['input-field', errors.lname ? 'error-field' : '', shakeStatus.lname ? 'shake' : '']"
                         >
                 </div>
+                <p :class="errors.lname ? 'error show' : 'error'"> {{ errors.lname }}</p>
                 </div>
             <div class="form-group">
                 <div class="input-group relative">
@@ -49,8 +55,10 @@
                         "v-model="address"
                         @input="validatedAddress"
                         @animationend="removeShakeStatus('address')"
+                        :class="['input-field', errors.address ? 'error-field' : '',shakeStatus.address ? 'shake' : '']"
                         >
                 </div>
+                <p :class="errors.address ? 'error show' : 'error'"> {{ errors.address }}</p>
                 </div>
             <div class="form-group">
                 <div class="input-group relative">
@@ -62,8 +70,10 @@
                         m" v-model="phonenum"
                         @input="validatedPhoneNumber"
                         @animationend="removeShakeStatus('phonenum')"
+                        :class="['input-field', errors.phonenum ? 'error-field' : '', shakeStatus.phonenum ? 'shake' : '']"
                         >
                 </div>
+                <p :class="errors.phonenum ? 'error show' : 'error'"> {{ errors.phonenum }}</p>
                 </div>
             <div class="form-group">
                 <div class="input-group relative">
@@ -75,8 +85,10 @@
                           v-model="email"
                           @input="validatedEmailField"
                           @animationend="removeShakeStatus('email')"
+                          :class="['input-field', errors.email ? 'error-field' : '', shakeStatus.email ? 'shake' : '']"
                           >
                 </div>
+                <p :class="errors.email ? 'error show' : 'error'"> {{ errors.email }}</p>
                 </div>
             <div class="form-group">
                 <div class="input-group relative">
@@ -89,9 +101,11 @@
                         @input="validatedPasswordField"
                         @click="togglePassword"
                         @animationend="removeShakeStatus('password')"
+                        :class="['input-field', errors.password ? 'error-field' : '', shakeStatus.password ? 'shake' : '']"
                         >
                     <font-awesome-icon :icon="showPassword ? 'eye-slash' : 'eye'" class="absolute right-3 text-gray" /> <!-- The Show eye password toggle is not visible to the website yet because the css is not here yet. -->
                 </div>
+                <p :class="errors.password ? 'error show' : 'error'"> {{ errors.password }}</p>
                 </div>
             <div class="form-group">
                 <div class="input-group relative">
@@ -103,14 +117,17 @@
                         rd" v-model="cpassword"
                         @input="validateConfirmPasswordField"
                         @animationend="removeShakeStatus('cpassword')"
+                        :class="['input-field', errors.cpassword ? 'error-field' : '', shakeStatus.cpassword ? 'shake' : '']"
                         >
                     <font-awesome-icon :icon="showPassword ? 'eyes-slash' : 'eye'" class="absolute right-3 text-gray "/>
                 </div>
+                <p :class="errors.cpassword ? 'error show' : 'error'"> {{  errors.cpassword }}</p>
                 </div>
 
             <button type="submit">Register</button>
             
         </form>
+        <p :class="succMessage ? 'success' : 'err show '"> {{ succMessage ? succMessage : errMessage }} </p> <!-- The Handle Register is not yet implemented.-->
     </div>
 </template>
 
@@ -126,6 +143,8 @@ import { ref } from 'vue';
     const email = ref('');
     const password = ref('');
     const showPassword = ref(false);
+    const succMessage = ref('');
+    const errMessage = ref('');
     const cpassword = ref('');
     const errors = ref({
         fname: '',
@@ -225,13 +244,13 @@ import { ref } from 'vue';
     };
     const validatedPasswordField = () => {
         if(!password.value){
-            errors.value.password = 'Password is Required';
+            errors.value.password = 'Enter Your Password First';
             shakeStatus.value.password = true;
         }
-        else if(password.value !== cpassword.value){
-            errors.value.password = 'Password does not match';
-            shakeStatus.value.password = true;
-        }
+        // else if(password.value !== cpassword.value){
+        //     errors.value.password = 'Password does not match';
+        //     shakeStatus.value.password = true;
+        // }
         else {
             errors.value.password = '';
         }
@@ -239,11 +258,11 @@ import { ref } from 'vue';
 
     const validateConfirmPasswordField = () => {
         if(!cpassword.value){
-            errors.value.cpassword = 'Confirm Password is Required';
+            errors.value.cpassword = 'Enter the Same Exact Password';
             shakeStatus.value.cpassword = true;
         }
         else if(cpassword.value !== password.value){
-            errors.value.cpassword = 'Password does not match';
+            errors.value.cpassword = 'Password does not match. Try Again.'; 
             shakeStatus.value.cpassword = true;
         }
         else {
@@ -251,10 +270,19 @@ import { ref } from 'vue';
         }
     }
 
-    // Logic for Register
+
+
+
+    
+
+    // Logic for Register form
     const handleRegister = () => {
 
     }
+
+
+
+
 
     // Validated Email Validation function simple regex check
     const validatedEmail = (email: string) =>{
