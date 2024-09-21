@@ -4,77 +4,109 @@
         <h1>Register</h1>
         <form @submit.prevent="handleRegister">
             <div class="form-group">
-                <label for="fname">First Name</label>
-                <input
-                    type="text" 
-                    id="fname" 
-                    v-model="fname"
-                    @input="validatedFirstName"
-                    >
-            </div>
+                <div class="input-group relative">
+                    <label for="fname">First Name</label>
+                    <input
+                        type="text" 
+                        id="fname" 
+                        v-model="fname"
+                        @input="validatedFirstName"
+                        @animationend="removeShakeStatus('fname')"
+                        >
+                </div>
+                </div>
             <div class="form-group">
-                <label for="mname">Middle Name</label>
-                <input
-                    type="text" 
-                    id="mname" 
-                    v-model="mname"
-                    @input="validatedMiddleName"
-                    >
-            </div>
+                <div class="input-group relative">
+                    <label for="mname">Middle Name</label>
+                    <input
+                        type="text" 
+                        id="mname" 
+                        v-model="mname"
+                        @input="validatedMiddleName"
+                        @animationend="removeShakeStatus('mname')"
+                        >
+                </div>
+                </div>
             <div class="form-group">
-                <label for="lname">Last Name</label>
-                <input
-                    type="text" 
-                    id="lname" 
-                    v-model="lname"
-                    @input="validatedLastName"
-                    >
-            </div>
+                <div class="input-group relative">
+                    <label for="lname">Last Name</label>
+                    <input
+                        type="text" 
+                        id="lname" 
+                        v-model="lname"
+                        @input="validatedLastName"
+                        @animationend="removeShakeStatus('lname')"
+                        >
+                </div>
+                </div>
             <div class="form-group">
-                <label for="address">Address</label>
-                <input
-                    type="text" 
-                    id="address
-                    "v-model="address"
-                    @input="validatedAddress"
-                    >
-            </div>
+                <div class="input-group relative">
+                    <!-- <label for="address">Address</label> -->
+                    <font-awesome-icon icon="home" class="absolute left-3 text-gray icon-visible" />
+                    <input
+                        type="text" 
+                        id="address
+                        "v-model="address"
+                        @input="validatedAddress"
+                        @animationend="removeShakeStatus('address')"
+                        >
+                </div>
+                </div>
             <div class="form-group">
-                <label for="phonenum">Phone Number</label>
-                <input
-                    type="text" 
-                    id="phonenu
-                    m" v-model="phonenum"
-                    @input="validatedPhoneNumber"
-                    >
-            </div>
+                <div class="input-group relative">
+                    <!-- <label for="phonenum">Phone Number</label> -->
+                    <font-awesome-icon icon="phone" class="absolute left-3 text-gray icon-visible" />
+                    <input
+                        type="text" 
+                        id="phonenu
+                        m" v-model="phonenum"
+                        @input="validatedPhoneNumber"
+                        @animationend="removeShakeStatus('phonenum')"
+                        >
+                </div>
+                </div>
             <div class="form-group">
-                <label for="email">Email</label>
-                <input
-                    type="email"
-                     id="email"
-                      v-model="email"
-                      @input="validatedEmailField"
-                      >
-            </div>
+                <div class="input-group relative">
+                    <!-- <label for="email">Email</label> -->
+                    <font-awesome-icon icon="envelope" class="absolute left-3 text-gray icon-visible" />
+                    <input
+                        type="email"
+                         id="email"
+                          v-model="email"
+                          @input="validatedEmailField"
+                          @animationend="removeShakeStatus('email')"
+                          >
+                </div>
+                </div>
             <div class="form-group">
-                <label for="passsword">Password</label>
-                <input
-                    type="text" 
-                    id="passsword" 
-                    v-model="password"
-                    @input="validatedPasswordField"
-                    >
-            </div>
+                <div class="input-group relative">
+                    <!-- <label for="passsword">Password</label> -->
+                    <font-awesome-icon icon="lock" class="absolute left-3 text-gray icon-visible" />
+                    <input
+                        type="text" 
+                        id="passsword" 
+                        v-model="password"
+                        @input="validatedPasswordField"
+                        @click="togglePassword"
+                        @animationend="removeShakeStatus('password')"
+                        >
+                    <font-awesome-icon :icon="showPassword ? 'eye-slash' : 'eye'" class="absolute right-3 text-gray" /> <!-- The Show eye password toggle is not visible to the website yet because the css is not here yet. -->
+                </div>
+                </div>
             <div class="form-group">
-                <label for="cpassword">Confirm Password</label>
-                <input
-                    type="text" 
-                    id="cpasswo
-                    rd" v-model="cpassword"
-                    @input="validateConfirmPasswordField"
-                    >
-            </div>
+                <div class="input-group relative">
+                    <!-- <label for="cpassword">Confirm Password</label> -->
+                    <font-awesome-icon icon="lock" class="absolute left-3 text-gray icon-visible" />
+                    <input
+                        type="text" 
+                        id="cpasswo
+                        rd" v-model="cpassword"
+                        @input="validateConfirmPasswordField"
+                        @animationend="removeShakeStatus('cpassword')"
+                        >
+                    <font-awesome-icon :icon="showPassword ? 'eyes-slash' : 'eye'" class="absolute right-3 text-gray "/>
+                </div>
+                </div>
 
             <button type="submit">Register</button>
             
@@ -93,6 +125,7 @@ import { ref } from 'vue';
     const phonenum = ref('');
     const email = ref('');
     const password = ref('');
+    const showPassword = ref(false);
     const cpassword = ref('');
     const errors = ref({
         fname: '',
@@ -121,6 +154,11 @@ import { ref } from 'vue';
             shakeStatus.value[field] = false;
         }, 500); // Remove the shake class affter animation duration (0.5s)
     }
+
+    const togglePassword = () => {
+        showPassword.value = !showPassword.value;
+    }
+
     const validatedFirstName = () => {
         // If the input tag is empty
         if(!fname.value){
