@@ -134,7 +134,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-
     const fname = ref('');
     const mname = ref('');
     const lname = ref('');
@@ -270,18 +269,27 @@ import { ref } from 'vue';
         }
     }
 
-
-
-
-    
-
     // Logic for Register form
     const handleRegister = () => {
 
+    validatedFirstName();
+    validatedMiddleName();
+    validatedLastName();
+    validatedAddress();
+    validatedPhoneNumber();
+    validatedEmailField();
+    validatedPasswordField();
+    validateConfirmPasswordField();
+
+    if(!errors.value.fname && !errors.value.mname && !errors.value.lname && !errors.value.address && !errors.value.phonenum && !errors.value.email && !errors.value.password && !errors.value.cpassword){
+        succMessage.value = 'Register Successfully';
+        errMessage.value = '';
     }
-
-
-
+    else{
+        errMessage.value = 'Something went wrong. Please try again.';
+        succMessage.value = '';
+    }
+};
 
 
     // Validated Email Validation function simple regex check
