@@ -1,135 +1,157 @@
 <template>
     <!-- REGISTER PAGE -->
-    <div class="register-container">
-        <h1>Register</h1>
-        <form @submit.prevent="handleRegister">
-            <div class="form-group">
-                <div class="input-group relative">
-                    <label for="fname">First Name</label>
-                    <input
+    <div class="flex justify-center items-center h-screen bg-gray-900">
+        <div class="max-w-md w-full p-8 bg-gray-800 rounded-lg shadow-lg">
+            <h1 class="text-3xl font-bold text-center text-white mb-8">Register</h1>
+            <form @submit.prevent="handleRegister">
+                <div class="mb-4">
+                    <div class="relative">
+                        <font-awesome-icon icon="user" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                        <input
                         type="text" 
                         id="fname" 
                         v-model="fname"
                         @input="validatedFirstName"
                         @animationend="removeShakeStatus('fname')"
-                        :class="['input-field', errors.fname ? 'error-field' : '', shakeStatus.fname ? 'shake' : '']"
-                        >
+                        placeholder="First Name*"
+                        :class="['w-full p-3 pl-10 bg-gray-700 text-white rounded-lg border focus:outline-none focus:border-blue-500', errors.fname ? 'border-red-500' : 'border-gray-600', shakeStatus.fname ? 'animate-shake' : '']"
+                        />
+                    </div>
+                    <p :class="[errors.fname ? 'text-red-500 text-sm mt-1' : 'invisible']">{{ errors.fname }}</p>
                 </div>
-                <p :class="errors.fname ? 'error show' : 'error'"> {{  errors.fname }}</p>
-                </div>
-            <div class="form-group">
-                <div class="input-group relative">
-                    <label for="mname">Middle Name</label>
-                    <input
+                
+                <div class="mb-4">
+                    <div class="relative">
+                        <input
                         type="text" 
                         id="mname" 
                         v-model="mname"
                         @input="validatedMiddleName"
                         @animationend="removeShakeStatus('mname')"
-                        :class="['input-field', errors.mname ? 'error-field' : '', shakeStatus.mname ? 'shake' : '' ]"
-                        >
+                        placeholder="Middle Name*"
+                        :class="['w-full p-3 pl-10 bg-gray-700 text-white rounded-lg border focus:outline-none focus:border-blue-500', errors.mname ? 'border-red-500' : 'border-gray-600', shakeStatus.mname ? 'animate-shake' : '']"
+                        />
+                        <font-awesome-icon icon="id-card" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                    </div>
+                    <p :class="[errors.mname ? 'text-red-500 text-sm mt-1' : 'invisible']">{{ errors.mname }}</p>
                 </div>
-                <p :class="errors.mname ? 'error show' : 'error'"> {{ errors.mname }}</p>
-                </div>
-            <div class="form-group">
-                <div class="input-group relative">
-                    <label for="lname">Last Name</label>
-                    <input
-                        type="text" 
-                        id="lname" 
-                        v-model="lname"
-                        @input="validatedLastName"
-                        @animationend="removeShakeStatus('lname')"
-                        :class="['input-field', errors.lname ? 'error-field' : '', shakeStatus.lname ? 'shake' : '']"
-                        >
-                </div>
-                <p :class="errors.lname ? 'error show' : 'error'"> {{ errors.lname }}</p>
-                </div>
-            <div class="form-group">
-                <div class="input-group relative">
-                    <!-- <label for="address">Address</label> -->
-                    <font-awesome-icon icon="home" class="absolute left-3 text-gray icon-visible" />
-                    <input
-                        type="text" 
-                        id="address
-                        "v-model="address"
-                        @input="validatedAddress"
-                        @animationend="removeShakeStatus('address')"
-                        :class="['input-field', errors.address ? 'error-field' : '',shakeStatus.address ? 'shake' : '']"
-                        >
-                </div>
-                <p :class="errors.address ? 'error show' : 'error'"> {{ errors.address }}</p>
-                </div>
-            <div class="form-group">
-                <div class="input-group relative">
-                    <!-- <label for="phonenum">Phone Number</label> -->
-                    <font-awesome-icon icon="phone" class="absolute left-3 text-gray icon-visible" />
-                    <input
-                        type="text" 
-                        id="phonenu
-                        m" v-model="phonenum"
-                        @input="validatedPhoneNumber"
-                        @animationend="removeShakeStatus('phonenum')"
-                        :class="['input-field', errors.phonenum ? 'error-field' : '', shakeStatus.phonenum ? 'shake' : '']"
-                        >
-                </div>
-                <p :class="errors.phonenum ? 'error show' : 'error'"> {{ errors.phonenum }}</p>
-                </div>
-            <div class="form-group">
-                <div class="input-group relative">
-                    <!-- <label for="email">Email</label> -->
-                    <font-awesome-icon icon="envelope" class="absolute left-3 text-gray icon-visible" />
-                    <input
-                        type="email"
-                         id="email"
-                          v-model="email"
-                          @input="validatedEmailField"
-                          @animationend="removeShakeStatus('email')"
-                          :class="['input-field', errors.email ? 'error-field' : '', shakeStatus.email ? 'shake' : '']"
-                          >
-                </div>
-                <p :class="errors.email ? 'error show' : 'error'"> {{ errors.email }}</p>
-                </div>
-            <div class="form-group">
-                <div class="input-group relative">
-                    <!-- <label for="passsword">Password</label> -->
-                    <font-awesome-icon icon="lock" class="absolute left-3 text-gray icon-visible" />
-                    <input
-                        type="text" 
-                        id="passsword" 
-                        v-model="password"
-                        @input="validatedPasswordField"
-                        @click="togglePassword"
-                        @animationend="removeShakeStatus('password')"
-                        :class="['input-field', errors.password ? 'error-field' : '', shakeStatus.password ? 'shake' : '']"
-                        >
-                    <font-awesome-icon :icon="showPassword ? 'eye-slash' : 'eye'" class="absolute right-3 text-gray" /> <!-- The Show eye password toggle is not visible to the website yet because the css is not here yet. -->
-                </div>
-                <p :class="errors.password ? 'error show' : 'error'"> {{ errors.password }}</p>
-                </div>
-            <div class="form-group">
-                <div class="input-group relative">
-                    <!-- <label for="cpassword">Confirm Password</label> -->
-                    <font-awesome-icon icon="lock" class="absolute left-3 text-gray icon-visible" />
-                    <input
-                        type="text" 
-                        id="cpasswo
-                        rd" v-model="cpassword"
-                        @input="validateConfirmPasswordField"
-                        @animationend="removeShakeStatus('cpassword')"
-                        :class="['input-field', errors.cpassword ? 'error-field' : '', shakeStatus.cpassword ? 'shake' : '']"
-                        >
-                    <font-awesome-icon :icon="showPassword ? 'eyes-slash' : 'eye'" class="absolute right-3 text-gray "/>
-                </div>
-                <p :class="errors.cpassword ? 'error show' : 'error'"> {{  errors.cpassword }}</p>
+                
+                <div class="mb-4">
+                    <div class="relative">
+                        <input
+                            type="text" 
+                            id="lname" 
+                            v-model="lname"
+                            @input="validatedLastName"
+                            @animationend="removeShakeStatus('lname')"
+                            placeholder="Last Name*"
+                            :class="['w-full p-3 pl-10 bg-gray-700 text-white rounded-lg border focus:outline-none focus:border-blue-500', errors.lname ? 'border-red-500' : 'border-gray-600', shakeStatus.lname ? 'animate-shake' : '']"
+                            />
+                        <font-awesome-icon icon="user" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                    </div>
+                    <p :class="[errors.lname ? 'text-red-500 text-sm mt-1' : 'invisible']">{{ errors.lname }}</p>
                 </div>
 
-            <button type="submit">Register</button>
-            
-        </form>
-        <p :class="succMessage ? 'success' : 'err show '"> {{ succMessage ? succMessage : errMessage }} </p> <!-- The Handle Register is not yet implemented.-->
+                <div class="mb-4">
+                    <div class="relative">
+                        <font-awesome-icon icon="home" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                        <input
+                            type="text" 
+                            id="address" 
+                            v-model="address"
+                            @input="validatedAddress"
+                            @animationend="removeShakeStatus('address')"
+                            placeholder="Address*"
+                            :class="['w-full p-3 pl-10 bg-gray-700 text-white rounded-lg border focus:outline-none focus:border-blue-500', errors.address ? 'border-red-500' : 'border-gray-600', shakeStatus.address ? 'animate-shake' : '']"
+                        />
+                        <font-awesome-icon icon="map-marker-alt" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"/>
+                    </div>
+                    <p :class="[errors.address ? 'text-red-500 text-sm mt-1' : 'invisible']">{{ errors.address }}</p>
+                </div>
+
+                <div class="mb-4">
+                    <div class="relative">
+                        <font-awesome-icon icon="phone" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                        <input
+                            type="text" 
+                            id="phonenum" 
+                            v-model="phonenum"
+                            @input="validatedPhoneNumber"
+                            @animationend="removeShakeStatus('phonenum')"
+                            placeholder="Phone Number*"
+                            :class="['w-full p-3 pl-10 bg-gray-700 text-white rounded-lg border focus:outline-none focus:border-blue-500', errors.phonenum ? 'border-red-500' : 'border-gray-600', shakeStatus.phonenum ? 'animate-shake' : '']"
+                        />
+                    </div>
+                    <p :class="[errors.phonenum ? 'text-red-500 text-sm mt-1' : 'invisible']">{{ errors.phonenum }}</p>
+                </div>
+
+                <div class="mb-4">
+                    <div class="relative">
+                        <font-awesome-icon icon="envelope" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                        <input
+                            type="email" 
+                            id="email" 
+                            v-model="email"
+                            @input="validatedEmailField"
+                            @animationend="removeShakeStatus('email')"
+                            placeholder="Email*"
+                            :class="['w-full p-3 pl-10 bg-gray-700 text-white rounded-lg border focus:outline-none focus:border-blue-500', errors.email ? 'border-red-500' : 'border-gray-600', shakeStatus.email ? 'animate-shake' : '']"
+                        />
+                    </div>
+                    <p :class="[errors.email ? 'text-red-500 text-sm mt-1' : 'invisible']">{{ errors.email }}</p>
+                </div>
+
+                <div class="mb-4">
+                    <div class="relative">
+                        <font-awesome-icon icon="lock" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                        <input
+                            :type="showPassword ? 'text' : 'password'"  
+                            id="password" 
+                            v-model="password"
+                            @input="validatedPasswordField"
+                            @click="togglePassword"
+                            @animationend="removeShakeStatus('password')"
+                            placeholder="Password*"
+                            :class="['w-full p-3 pl-10 bg-gray-700 text-white rounded-lg border focus:outline-none focus:border-blue-500', errors.password ? 'border-red-500' : 'border-gray-600', shakeStatus.password ? 'animate-shake' : '']"
+                        />
+                        <font-awesome-icon 
+                            :icon="showPassword ? 'eye-slash' : 'eye'" 
+                            class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer"
+                            @click="togglePassword"
+                        />
+                    </div>
+                    <p :class="[errors.password ? 'text-red-500 text-sm mt-1' : 'invisible']">{{ errors.password }}</p>
+                </div>
+
+                <div class="mb-6">
+                    <div class="relative">
+                        <font-awesome-icon icon="lock" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                        <input
+                            type="password" 
+                            id="cpassword" 
+                            v-model="cpassword"
+                            @input="validateConfirmPasswordField"
+                            @animationend="removeShakeStatus('cpassword')"
+                            placeholder="Confirm Password*"
+                            :class="['w-full p-3 pl-10 bg-gray-700 text-white rounded-lg border focus:outline-none focus:border-blue-500', errors.cpassword ? 'border-red-500' : 'border-gray-600', shakeStatus.cpassword ? 'animate-shake' : '']"
+                        />
+                    </div>
+                    <p :class="[errors.cpassword ? 'text-red-500 text-sm mt-1' : 'invisible']">{{ errors.cpassword }}</p>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none">
+                        Register
+                    </button>
+                </div>
+            </form>
+            <p :class="succMessage ? 'text-green-500 text-center mt-4' : 'text-red-500 text-center mt-4'">
+                {{ succMessage ? succMessage : errMessage }}
+            </p>
+        </div>
     </div>
 </template>
+
 
 <script setup lang="ts">
 import { ref } from 'vue';
@@ -291,7 +313,6 @@ import { ref } from 'vue';
     }
 };
 
-
     // Validated Email Validation function simple regex check
     const validatedEmail = (email: string) =>{
         const re = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
@@ -303,8 +324,6 @@ import { ref } from 'vue';
     // Add a Validation for a address field
 
 </script>
-
-
 
 <!-- CSS STYLE -->
 <style>

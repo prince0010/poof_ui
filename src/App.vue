@@ -1,7 +1,7 @@
 <template>
   <div>
-   <!-- <Login />  -->
-   <Register/>
+   <Login /> 
+   <!-- <Register/> -->
   </div>
 </template>
 
@@ -14,8 +14,8 @@ import Register from './components/auth/Register.vue';
 
   export default {
     components: {
-      // Login
-      Register
+      Login
+      // Register
     }
   };
 </script>

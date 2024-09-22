@@ -1,49 +1,51 @@
 <template>
-    <div class="parent-container">
-        <div class="login-container">
-            <h1 class="title">Login</h1>
+    <div class="flex justify-center items-center h-screen bg-gray-900">
+        <div class="max-w-md w-full p-8 bg-gray-800 rounded-lg shadow-lg">
+            <h1 class="text-3xl font-bold text-center text-white mb-8">Login</h1>
 
             <form @submit.prevent="handleLogin">
-                <div class="form-group">
-                    <div class="input-group relative">
-                        <font-awesome-icon icon="envelope" class="absolute left-3 text-gray icon-visible" />
+                <div class="mb-4">
+                    <div class="relative">
+                        <font-awesome-icon icon="envelope" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                         <input 
                             type="email" 
                             id="email"
                             v-model="email"
                             @input="validateEmailField" 
                             placeholder="example123@gmail.com*"
-                            :class="['input-field', errors.email ? 'error-field' : '', shakeStatus.email ? 'shake' : '']"
+                            :class="['w-full p-3 pl-10 bg-gray-700 text-white rounded-lg border focus:outline-none focus:border-blue-500', errors.email ? 'border-red-500' : 'border-gray-600', shakeStatus.email ? 'animate-shake' : '']"
                             @animationend="removeShake('email')"
                         />
                     </div>
-                    <p :class="errors.email ? 'error show ' : 'error'">{{ errors.email }}</p>
+                    <p :class="errors.email ? 'text-red-500 text-sm mt-1 ' : 'invisible'">{{ errors.email }}</p>
                     </div> 
-                <div class="form-group"> 
-                    <div class="input-group relative"> 
-                        <font-awesome-icon icon="lock" class="absolute left-3 text-gray icon-visible"/> 
+                <div class="mb-4"> 
+                    <div class="relative"> 
+                        <font-awesome-icon icon="lock" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"/> 
                         <input 
                             :type="showPassword ? 'text' : 'password'"  
                             id="password" 
                             v-model="password" 
                             @input="validatePasswordField" 
                             placeholder="Password*" 
-                            :class="['input-field', errors.password ? 'error-field' : '', shakeStatus.password ? 'shake' : '']" 
+                            :class="['w-full p-3 pl-10 bg-gray-700 text-white rounded-lg border focus:outline-none focus:border-blue-500', errors.password ? 'border-red-500' : 'border-gray-600', shakeStatus.password ? 'animate-shake' : '']" 
                             @animationend="removeShake('password')"  
                         /> 
                         <font-awesome-icon 
                             :icon="showPassword ? 'eye-slash' : 'eye'" 
-                            class="absolute right-3 cursor text-gray"
+                            class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer"
                             @click="togglePasswordVisibility"
                         />
                     </div>
-                    <p :class="errors.password ? 'error show ' : 'error'">{{ errors.password }} </p>
+                    <p :class="errors.password ? 'text-red-500 text-sm mt-1' : 'invisible'">{{ errors.password }} </p>
                     </div>
                 <div class="btn">
-                    <button type="submit" class="login-button">Login</button>
+                    <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none">Login</button>
                 </div>
             </form>
-            <p :class="succMessage ? 'success' : 'err show '"> {{ succMessage ? succMessage : errorMessage }} </p>
+            <p :class="succMessage ? 'text-green-500 text-center mt-4' : 'text-red-500 text-center mt-4'"> 
+                {{ succMessage ? succMessage : errorMessage }} 
+            </p>
         </div>
     </div>
 </template>
@@ -122,181 +124,3 @@ const validatedEmail = (email: string) => {
 };
 </script>
 
-<style>
-
-/* Body styles */
-body {
-    min-height: 100vh;
-    color: #ffffff;
-    background: #1d1d1d;
-    font-family: Inter, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-    font-size: 15px;
-}
-
-/* Parent container to center the login container */
-.parent-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
-.title{
-    margin-top: 0px; /* Removes any extra space above the title */
-    padding-top: 0.5rem; /* Adjusts the space inside the element from the top */
-    margin-bottom: 3rem; /* Keeps space below the title */
-    font-size: 2.5rem; /* Keeps the large size of the title */
-    text-align: center; /* Centers the title text */
-}
-/* Login container styling */
-.login-container {
-    max-width: 300px;
-    padding: 1rem; /* Increased padding for a balanced look */
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #2a2a2a;
-    width: 100%;
-}
-
-.err{
-    color:red;
-    font-size: 0.85rem;
-    height: 20px;
-    visibility: hidden;
-}
-/* Error message styling */
-.error {
-    color: red;
-    font-size: 0.85rem;
-    margin-top: 5px; /* Add margin to separate from input */
-    height: 20px; /* Fixed height to prevent layout shifting */
-    visibility: hidden; /* Hide the error message placeholder initially */
-}
-.err.show,
-.error.show {
-    visibility: visible; /* Show error messages */
-}
-
-.err,
-.success{
-    text-align: center;
-}
-/* Success message styling */
-.success {
-    color: green;
-}
-
-/* Button container */
-.btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Form group wrapper */
-.form-group {
-    /* display: flex;
-    align-items: center; */
-   /* margin-bottom: 1.5rem;  Center vertically */
-    position: relative; /* Position icons relative to the input field */
-}
-
-/* Input group wrapper for icons and inputs */
-.input-group {
-    display: flex;
-    align-items: center;
-    position: relative;
-}
-
-/* Input field styling */
-.input-field,
-.error-field {
-    width: 100%;
-    padding: 0.5rem 2rem; /* Reduced padding for better fit */
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #333;
-    color: #fff;
-    box-sizing: border-box;
-    height: 40px; /* Slightly reduced height for compact design */
-    font-size: 0.9rem; /* Reduced font size for smaller fields */
-    line-height: 1.5;
-    transition: all 0.3s ease;
-    position: relative;
-}
-
-/* Shake animation */
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    50% { transform: translateX(5px); }
-    75% { transform: translateX(-5px); }
-}
-
-.shake{
-    animation: shake 0.5s ease;
-}
-/* Error field styling */
-.error-field {
-    border-color: red; /* Red border for error */
-}
-
-/* Icon positioning */
-.absolute {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 0.8rem; /* Reduced icon size for better fit */
-}
-
-.left-3 {
-    left: 10px; /* Adjusted to fit with reduced input padding */
-}
-
-.right-3 {
-    right: 10px; /* Adjusted to fit with reduced input padding */
-}
-
-.cursor {
-    cursor: pointer;
-}
-
-.text-gray {
-    color: rgb(156, 163, 175); /* Light gray for the icons */
-}
-
-.icon-visible {
-    z-index: 2;
-    pointer-events: none; /* Ensure icon doesn't interfere with input */
-}
-
-/* Button styling */
-.login-button {
-    background-color: rgb(75, 74, 74);
-    color: white;
-    padding: 8px 16px; /* Slightly reduced padding for a compact button */
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9rem; /* Adjusted font size */
-    transition: background-color 0.3s ease;
-}
-
-/* Button hover and focus states */
-.login-button:hover {
-    background-color: rgb(37, 37, 37);
-}
-
-.login-button:focus {
-    outline: none;
-    background-color: rgb(109, 109, 109);
-}
-
-.login-button:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
-}
-
-
-</style>
