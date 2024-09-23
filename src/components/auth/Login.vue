@@ -47,6 +47,8 @@
                 {{ succMessage ? succMessage : errorMessage }} 
             </p>
 
+            <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-">
+
             <p class="text-white text-center mt-4">
                 No Account? <router-link to="/register" class="text-blue-500 underline"> Click Here to Register. </router-link>
             </p>
