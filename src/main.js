@@ -10,11 +10,12 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 // Import Speific icons
 import { faUser, faEnvelope, faLock, faEye, faEyeSlash, faPhone, faMapMarkerAlt, faIdCard, faMapMarker } from '@fortawesome/free-solid-svg-icons';
+import router from './router/router';
 
 // Add the imported icons to the library
 library.add(faUser, faEnvelope, faLock, faEye, faEyeSlash, faPhone, faMapMarkerAlt, faIdCard, faMapMarker);
 
-const app = createApp(App);
+const app = createApp(App).use(router);
 
 // Register the FontAwesome Component Globally
 app.component('font-awesome-icon', FontAwesomeIcon);

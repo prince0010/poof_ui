@@ -46,6 +46,10 @@
             <p :class="succMessage ? 'text-green-500 text-center mt-4' : 'text-red-500 text-center mt-4'"> 
                 {{ succMessage ? succMessage : errorMessage }} 
             </p>
+
+            <p class="text-white text-center mt-4">
+                No Account? <router-link to="/register" class="text-blue-500 underline"> Click Here to Register. </router-link>
+            </p>
         </div>
     </div>
 </template>

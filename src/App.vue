@@ -1,7 +1,8 @@
 <template>
   <div>
-   <Login /> 
+   <!-- <Login />  -->
    <!-- <Register/> -->
+   <router-view />
   </div>
 </template>
 
@@ -13,9 +14,10 @@ import Register from './components/auth/Register.vue';
 
 
   export default {
-    components: {
-      Login
-      // Register
-    }
+    // components: {
+    //   Login
+    //   // Register
+    // }
+    name: 'App',
   };
 </script>
