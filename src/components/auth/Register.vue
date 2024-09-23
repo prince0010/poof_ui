@@ -148,6 +148,10 @@
             <p :class="succMessage ? 'text-green-500 text-center mt-4' : 'text-red-500 text-center mt-4'">
                 {{ succMessage ? succMessage : errMessage }}
             </p>
+
+            <p class="text-white text-center mt-4">
+                Already Have an Account? <router-link to="/login" class="text-blue-500 underline"> Click Here to Login</router-link>
+            </p>
         </div>
     </div>
 </template>
