@@ -6,19 +6,20 @@ import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
     {
-        path: "/",
+        path: "/login", //If they try to go to /login, they will be redirected back to /, where the login page is still displayed.
+        redirect: "/", // When users access /, they will see the login page.
+    },
+    {
+        path: "/", // When users access /, they will see the login page.
         name: "Login",
         component: Login
     },
     {
-        path: "/register",
+        path: "/register", // The registration page can be accessed at /register
         name: "Register",
         component: Register
     },
-    {
-        path: "/",
-        redirect: "/login",
-    },
+   
 ];
 
 const router = createRouter({

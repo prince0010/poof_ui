@@ -150,9 +150,9 @@
             </p>
 
             <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-">
-            
+
             <p class="text-white text-center mt-4">
-                Already Have an Account? <router-link to="/login" class="text-blue-500 underline"> Click Here to Login</router-link>
+                Already Have an Account? <router-link to="/" class="text-blue-500 underline"> Click Here to Login</router-link>
             </p>
         </div>
     </div>
