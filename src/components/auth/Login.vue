@@ -1,7 +1,7 @@
 <template>
-    <div class="flex justify-center items-center h-screen bg-gray-900">
+    <div class="flex justify-center items-center h-screen bg-primary">
         <div class="max-w-md w-full p-8 bg-gray-800 rounded-lg shadow-lg">
-            <h1 class="text-3xl font-bold text-center text-white mb-8">Login</h1>
+            <p class="text-3xl font-bold text-center text-white mb-8 bg-gradient-to-r from-amber-300 to-red-500 text-transparent bg-clip-text">Login</p>
 
             <form @submit.prevent="handleLogin">
                 <div class="mb-4">
@@ -32,7 +32,7 @@
                             @animationend="removeShake('password')"  
                         /> 
                         <font-awesome-icon 
-                            :icon="showPassword ? 'eye-slash' : 'eye'" 
+                            :icon="showPassword ? 'eye' : 'eye-slash'" 
                             class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer"
                             @click="togglePasswordVisibility"
                         />
@@ -40,14 +40,14 @@
                     <p :class="errors.password ? 'text-red-500 text-sm mt-1' : 'invisible'">{{ errors.password }} </p>
                     </div>
                 <div class="btn">
-                    <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none">Login</button>
+                    <button type="submit" class="w-full bg-amber-400 text-black py-2 px-4 rounded-lg font-semibold hover:bg-amber-300 focus:outline-none">Login</button>
                 </div>
             </form>
             <p :class="succMessage ? 'text-green-500 text-center mt-4' : 'text-red-500 text-center mt-4'"> 
                 {{ succMessage ? succMessage : errorMessage }} 
             </p>
 
-            <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-">
+            <hr class="h-px my-8 bg-gray-400 border-0 dark:bg-gray-">
 
             <p class="text-white text-center mt-4">
                 No Account? <router-link to="/register" class="text-blue-500 underline"> Click Here to Register. </router-link>

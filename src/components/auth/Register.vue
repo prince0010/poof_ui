@@ -1,8 +1,8 @@
 <template>
     <!-- REGISTER PAGE -->
-    <div class="flex justify-center items-center h-screen bg-gray-900">
+    <div class="flex justify-center items-center h-screen bg-primary">
         <div class="max-w-md w-full p-8 bg-gray-800 rounded-lg shadow-lg">
-            <h1 class="text-3xl font-bold text-center text-white mb-8">Register</h1>
+            <p class="text-3xl font-bold text-center bg-gradient-to-r from-amber-300 to-red-500 bg-clip-text text-transparent mb-8">Register</p>
             <form @submit.prevent="handleRegister">
                 <div class="mb-4">
                     <div class="relative">
@@ -140,7 +140,7 @@
                 </div>
 
                 <div class="text-center">
-                    <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none">
+                    <button type="submit" class="w-full bg-amber-400 text-gray-900 font-semibold py-2 px-4 rounded-lg hover:bg-amber-300 focus:outline-none ">
                         Register
                     </button>
                 </div>
@@ -149,7 +149,7 @@
                 {{ succMessage ? succMessage : errMessage }}
             </p>
 
-            <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-">
+            <hr class="h-px my-8 bg-gray-400 border-0 dark:bg-gray-">
 
             <p class="text-white text-center mt-4">
                 Already Have an Account? <router-link to="/" class="text-blue-500 underline"> Click Here to Login</router-link>
